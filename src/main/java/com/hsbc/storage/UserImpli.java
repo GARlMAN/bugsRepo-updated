@@ -9,7 +9,7 @@ import com.hsbc.models.User;
 //import these classes if there's an error
 import java.util.ResourceBundle;
 import java.sql.*;
-import com.hsbc.helpers.MySQLHelper;
+import com.hsbc.helper.MySQLHelper;
 import java.sql.*;
 
 //these are general functions to all people
@@ -42,14 +42,16 @@ public class UserImpli implements UserDAL{
             //execute query
             rows= preparedStatement.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException e) {
+        }catch (SQLIntegrityConstraintViolationException e){
+            throw new UserAlreadyExist("This user already exists");
+        }
+        catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e); //need to customn exeptions
         }
 
         if(rows>0)
             System.out.println("User added successfully");
-        else
-            throw new UserAlreadyExist("This user already exists");
+
 
 
     }
@@ -79,6 +81,7 @@ public class UserImpli implements UserDAL{
 
                 // creating a User object and returning it
                 user = new User(userEmail, userPassword, Role.valueOf(role));
+                System.out.println("User logged in");
             } else {
                 // if no user found, throw custom exception
                 throw new InvalidCredentialsException("Invalid email or password.");

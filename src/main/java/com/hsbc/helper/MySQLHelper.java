@@ -1,4 +1,4 @@
-package com.hsbc.helpers;
+package com.hsbc.helper;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
