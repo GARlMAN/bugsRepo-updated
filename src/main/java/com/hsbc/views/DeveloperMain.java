@@ -27,13 +27,16 @@ public class DeveloperMain {
             System.out.println(e.getMessage());
         }
 
-
+        User user = null;
         //loging user
         try {
-            userDAL.loginUser("user@gmail.comm", "password12345");
+            user = userDAL.loginUser("user@gmail.comm", "password12345");
         }catch (RuntimeException  e) {
             System.out.println(e.getMessage());
         }
+
+
+        
 
 
 
