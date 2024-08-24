@@ -1,5 +1,8 @@
 package com.hsbc.storage;
 
+import com.hsbc.Exception.InvalidCredentialsException;
+import com.hsbc.Exception.UserAlreadyExist;
+import com.hsbc.models.Role;
 import com.hsbc.models.User;
 
 
@@ -11,7 +14,6 @@ import java.sql.*;
 
 //these are general functions to all people
 public class UserImpli implements UserDAL{
-
     //  private static Connection connection;
     private static ResourceBundle resourceBundle;
     private PreparedStatement preparedStatement;
@@ -46,15 +48,49 @@ public class UserImpli implements UserDAL{
 
         if(rows>0)
             System.out.println("User added successfully");
+        else
+            throw new UserAlreadyExist("This user already exists");
+
 
     }
 
 
     //login is retreving object from user and returning the user which is used in all other dals
     @Override
-    public User loginUser(String email, String password) {
-        return null;
+    public User loginUser(String email, String password) throws InvalidCredentialsException {
+        User user = null;
+        String query = resourceBundle.getString("loginUser");  // getting query from property
+
+        try (Connection connection = MySQLHelper.getConnection()) {
+            // preparing the statement to execute the query
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+
+            // executing the query and getting the result set
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // checking if the user exists
+            if (resultSet.next()) {
+                // retrieving user details from the result set
+                String userEmail = resultSet.getString("email");
+                String userPassword = resultSet.getString("password");
+                String role = resultSet.getString("role");
+
+                // creating a User object and returning it
+                user = new User(userEmail, userPassword, Role.valueOf(role));
+            } else {
+                // if no user found, throw custom exception
+                throw new InvalidCredentialsException("Invalid email or password.");
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e); // handle SQL or ClassNotFound exceptions
+        }
+
+        return user;
     }
+
 
 
 

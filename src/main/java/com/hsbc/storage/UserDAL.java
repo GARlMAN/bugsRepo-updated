@@ -1,5 +1,6 @@
 package com.hsbc.storage;
 
+import com.hsbc.Exception.InvalidCredentialsException;
 import com.hsbc.models.Bug;
 import com.hsbc.models.Project;
 import com.hsbc.models.User;
@@ -12,5 +13,5 @@ public interface UserDAL {
     void signUpUser(User user);
 
     //login in user using the giving credentails
-    User loginUser(String email, String password); //returns user which is used in other dals
+    User loginUser(String email, String password)  throws InvalidCredentialsException; //returns user which is used in other dals
 }
