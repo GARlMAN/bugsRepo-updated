@@ -1,7 +1,7 @@
 package com.hsbc.storage;
 
-import com.hsbc.Exception.InvalidCredentialsException;
-import com.hsbc.Exception.UserAlreadyExist;
+import com.hsbc.exceptions.InvalidCredentialsException;
+import com.hsbc.exceptions.UserAlreadyExist;
 import com.hsbc.models.Role;
 import com.hsbc.models.User;
 
@@ -10,7 +10,6 @@ import com.hsbc.models.User;
 import java.util.ResourceBundle;
 import java.sql.*;
 import com.hsbc.helper.MySQLHelper;
-import java.sql.*;
 
 //these are general functions to all people
 public class UserImpli implements UserDAL{

@@ -1,16 +1,9 @@
 package com.hsbc.views;
 
-import com.hsbc.Exception.InvalidCredentialsException;
 import com.hsbc.models.Role;
 import com.hsbc.storage.UserDAL;
-import com.hsbc.models.Bug;
-import com.hsbc.models.Project;
 import com.hsbc.models.User;
 import com.hsbc.storage.UserImpli;
-
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Scanner;
 
 public class DeveloperMain {
 
@@ -36,7 +29,11 @@ public class DeveloperMain {
         }
 
 
-        
+
+
+
+
+
 
 
 

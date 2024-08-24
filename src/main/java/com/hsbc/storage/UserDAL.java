@@ -1,11 +1,7 @@
 package com.hsbc.storage;
 
-import com.hsbc.Exception.InvalidCredentialsException;
-import com.hsbc.models.Bug;
-import com.hsbc.models.Project;
+import com.hsbc.exceptions.InvalidCredentialsException;
 import com.hsbc.models.User;
-
-import java.util.List;
 
 public interface UserDAL {
     // User operations
